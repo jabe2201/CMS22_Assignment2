@@ -24,5 +24,15 @@ namespace CMS22_Assignment2
         {
             InitializeComponent();
         }
+
+        private void bt_Add_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void bt_PutOrder_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
