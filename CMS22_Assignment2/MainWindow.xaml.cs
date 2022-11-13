@@ -20,6 +20,7 @@ namespace CMS22_Assignment2
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly ContactServies contactServies
         public MainWindow()
         {
             InitializeComponent();
