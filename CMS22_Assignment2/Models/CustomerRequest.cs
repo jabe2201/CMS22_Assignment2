@@ -14,16 +14,7 @@ namespace CMS22_Assignment2.Models
 
         public string LastName { get; set; } = null!;
 
-        public string? FullName 
-        {
-            get { return FullName; }
-            set { FullName = $"{FirstName} {LastName}"; }
-        }
-
-
-
-
-
+        public string FullName { get; set; } = null!;
 
     }
 }

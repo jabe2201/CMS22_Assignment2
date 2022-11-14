@@ -33,8 +33,9 @@ namespace CMS22_Assignment2.Services
                     {
                         Id = customer.CustomerId,
                         FirstName = customer.FirstName,
-                        LastName = customer.LastName
-                    });
+                        LastName = customer.LastName,
+                        FullName = $"{customer.FirstName} {customer.LastName}"
+                    }) ;
 
                     return customers;
                 }
