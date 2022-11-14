@@ -14,6 +14,7 @@ namespace CMS22_Assignment2.Models.Entities
         public int OrderId { get; set; }
         public DateTime Orderdate { get; set; }
         [Column (TypeName ="money")]
+        public decimal OrderSum { get; set; }
 
         public int CustomerId { get; set; }
         public CustomerEntity Customer { get; set; } = null!;

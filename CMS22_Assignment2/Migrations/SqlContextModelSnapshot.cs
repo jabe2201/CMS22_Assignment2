@@ -40,7 +40,7 @@ namespace CMS22Assignment2.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("CMS22_Assignment2.Models.Entities.OrderEntity", b =>
@@ -64,7 +64,7 @@ namespace CMS22Assignment2.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("CMS22_Assignment2.Models.Entities.OrderRowEntity", b =>
@@ -85,7 +85,7 @@ namespace CMS22Assignment2.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrdersRows");
+                    b.ToTable("OrdersRows", (string)null);
                 });
 
             modelBuilder.Entity("CMS22_Assignment2.Models.Entities.ProductEntity", b =>
@@ -105,7 +105,7 @@ namespace CMS22Assignment2.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("CMS22_Assignment2.Models.Entities.OrderEntity", b =>
