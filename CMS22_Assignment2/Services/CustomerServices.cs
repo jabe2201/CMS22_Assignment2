@@ -36,9 +36,8 @@ namespace CMS22_Assignment2.Services
                         LastName = customer.LastName,
                         FullName = $"{customer.FirstName} {customer.LastName}"
                     }) ;
-
-                    return customers;
                 }
+                return customers;
             }
             catch (Exception ex) { Debug.WriteLine(ex.Message); }
             return customers;

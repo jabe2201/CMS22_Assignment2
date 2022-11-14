@@ -1,7 +1,10 @@
-﻿using CMS22_Assignment2.Services;
+﻿using CMS22_Assignment2.Models;
+using CMS22_Assignment2.Models.Entities;
+using CMS22_Assignment2.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +27,7 @@ namespace CMS22_Assignment2
     {
         private readonly CustomerServices _customerServices;
         private readonly ProductServices _productServices;
+        private ObservableCollection<OrderRowModel> _orderRows = new ObservableCollection<OrderRowModel>();
 
         public MainWindow(CustomerServices customerServices, ProductServices productServices)
         {
@@ -48,14 +52,45 @@ namespace CMS22_Assignment2
             cb_Products.ItemsSource = products;
         }
 
-        private void bt_Add_Click(object sender, RoutedEventArgs e)
+        private async void bt_Add_ClickAsync(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                var customer = (KeyValuePair<int, string>)cb_Customer.SelectedItem;
+                var customerKey = customer.Key;
+
+                var product = (KeyValuePair<int, string>)cb_Products.SelectedItem;
+                var productKey = product.Key;
+
+                var productReq = await _productServices.GetAsync(productKey);
+
+                var orderRow = new OrderRowModel
+                {
+                    OrCustomerId = customerKey,
+                    OrProductId = productKey,
+                    OrPrice = productReq.Price,
+                    OrProductName = productReq.ProductName,
+                    OrQuantity = int.Parse(tb_Quantity.Text)
+                };
+
+                _orderRows.Add(orderRow);
+                RefreshOrderRows();
+                tb_Quantity.Text = "";
+                cb_Products.SelectedIndex = -1;
+                
+            }
+            catch (Exception ex) { Debug.WriteLine(ex.Message); }
 
         }
 
         private void bt_PutOrder_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        public void RefreshOrderRows()
+        {
+            lv_OrderRows.ItemsSource = _orderRows;
         }
     }
 }

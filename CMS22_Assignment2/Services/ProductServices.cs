@@ -34,31 +34,30 @@ namespace CMS22_Assignment2.Services
                         ProductName = product.ProductName,
                         Price = product.Price
                     });
-
-                    return products;
                 }
+                return products;
             }
             catch (Exception ex) { Debug.WriteLine(ex.Message); }
             return products;
         }
 
-        public async Task<ActionResult> GetAsync(int id)
+        public async Task<ProductRequest> GetAsync(int id)
         {
             try
             {
                 var productEntity = await _context.Products.FindAsync(id);
                 if (productEntity == null)
-                    return new NotFoundResult();
+                    return new ProductRequest();
 
-                return new OkObjectResult(new ProductRequest
+                return new ProductRequest
                 {
                     Id = productEntity.ProductId,
                     ProductName = productEntity.ProductName,
                     Price = productEntity.Price
-                });
+                };
             }
             catch (Exception ex) { Debug.WriteLine(ex.Message); }
-            return new BadRequestResult();
+            return new ProductRequest();
         }
     }
 }
