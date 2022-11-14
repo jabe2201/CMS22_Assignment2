@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,6 +28,7 @@ namespace CMS22_Assignment2
     {
         private readonly CustomerServices _customerServices;
         private readonly ProductServices _productServices;
+        private readonly OrderServices _orderServices;
         private ObservableCollection<OrderRowModel> _orderRows = new ObservableCollection<OrderRowModel>();
 
         public MainWindow(CustomerServices customerServices, ProductServices productServices)
@@ -90,8 +92,10 @@ namespace CMS22_Assignment2
 
             var order = new OrderModel
             {
-                C
-            }
+                CustomerId = customerKey,
+                DateTime = DateTime.Now
+            };
+
         }
 
         public void RefreshOrderRows()
