@@ -45,7 +45,7 @@
                 <TextBlock Text="Antal" VerticalAlignment="Center" FontSize="15"/>
                 <TextBox x:Name="tb_Quantity" Margin="5 10 5 10"  Width="40" FontSize="15" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Background="#f5f7f7"/>
                 <Button x:Name="bt_Add" Click="bt_Add_ClickAsync" Content="Lägg till" Margin="0 10 10 10" HorizontalAlignment="Right" Padding="5" FontSize="15"/>
-                <Button x:Name="bt_PutOrder" Click="bt_PutOrder_Click" Content="Skapa Order" Margin="0 10 0 10" Padding="5" FontSize="15"/>
+                <Button x:Name="bt_PutOrder" Click="bt_PutOrder_ClickAsync" Content="Skapa Order" Margin="0 10 0 10" Padding="5" FontSize="15"/>
             </StackPanel>
             
         </Grid>

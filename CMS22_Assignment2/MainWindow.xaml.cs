@@ -85,7 +85,7 @@ namespace CMS22_Assignment2
 
         }
 
-        private void bt_PutOrder_Click(object sender, RoutedEventArgs e)
+        private async void bt_PutOrder_ClickAsync(object sender, RoutedEventArgs e)
         {
             var customer = (KeyValuePair<int, string>)cb_Customer.SelectedItem;
             var customerKey = customer.Key;
@@ -95,7 +95,7 @@ namespace CMS22_Assignment2
                 CustomerId = customerKey,
                 DateTime = DateTime.Now
             };
-
+            await _orderServices.CreateAsync(order);
         }
 
         public void RefreshOrderRows()
