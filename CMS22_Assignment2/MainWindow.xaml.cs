@@ -85,11 +85,17 @@ namespace CMS22_Assignment2
         {
             var customer = (KeyValuePair<int, string>)cb_Customer.SelectedItem;
             var customerKey = customer.Key;
+            decimal sum = 0;
+            foreach(var price in _orderRows)
+            {
+                sum += price.OrPrice;
+            }
 
             var order = new OrderEntity
             {
                 CustomerId = customerKey,
                 Orderdate = DateTime.Now,
+                Sum = sum
             };
             await _orderServices.CreateAsync(order);
             await _orderServices.CreateRowsAsync(_orderRows, order.OrderId);
