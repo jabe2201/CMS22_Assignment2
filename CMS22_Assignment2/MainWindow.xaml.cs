@@ -85,7 +85,13 @@ namespace CMS22_Assignment2
 
         private void bt_PutOrder_Click(object sender, RoutedEventArgs e)
         {
+            var customer = (KeyValuePair<int, string>)cb_Customer.SelectedItem;
+            var customerKey = customer.Key;
 
+            var order = new OrderModel
+            {
+                C
+            }
         }
 
         public void RefreshOrderRows()
