@@ -8,9 +8,7 @@ namespace CMS22_Assignment2.Models
 {
     public class OrderRowModel
     {
-        public int OrCustomerId { get; set; }
-
-        public string OrProductName { get; set; } = null!;
+        public int OrOrderId { get; set; }
 
         public int OrProductId { get; set; }
 

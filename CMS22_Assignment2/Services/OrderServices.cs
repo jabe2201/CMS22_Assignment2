@@ -3,6 +3,7 @@ using CMS22_Assignment2.Models;
 using CMS22_Assignment2.Models.Entities;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,14 +19,25 @@ namespace CMS22_Assignment2.Services
             _context = context;
         }
 
-        public async Task CreateAsync(OrderModel orderModel)
+        public async Task CreateAsync(OrderEntity order)
         {
-            var order = new OrderEntity
-            {
-                CustomerId = orderModel.CustomerId,
-                Orderdate = orderModel.DateTime
-            };
             _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task CreateRowsAsync(ObservableCollection<OrderRowModel> orderRows, int orderId)
+        {
+            foreach(var row in orderRows)
+            {
+                var orderRow = new OrderRowEntity
+                {
+                    OrderId = orderId,
+                    ProductId = row.OrProductId,
+                    Quantity = row.OrQuantity,
+                    Price = row.OrPrice
+                };
+                _context.Add(orderRow);
+            }
             await _context.SaveChangesAsync();
         }
     }

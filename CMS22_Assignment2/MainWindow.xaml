@@ -13,7 +13,9 @@
                 <RowDefinition Height="9*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
+         
             
+
             <StackPanel Grid.Row="0">
                 <TextBlock Text="Kund" FontSize="15"/>
                 <ComboBox x:Name="cb_Customer" Margin="0 5 0 20"/>
@@ -51,3 +53,5 @@
         </Grid>
     </Grid>
 </Window>
+    
+

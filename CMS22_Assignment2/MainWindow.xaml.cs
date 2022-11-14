@@ -31,11 +31,12 @@ namespace CMS22_Assignment2
         private readonly OrderServices _orderServices;
         private ObservableCollection<OrderRowModel> _orderRows = new ObservableCollection<OrderRowModel>();
 
-        public MainWindow(CustomerServices customerServices, ProductServices productServices)
+        public MainWindow(CustomerServices customerServices, ProductServices productServices, OrderServices orderServices)
         {
             InitializeComponent();
             _customerServices = customerServices;
             _productServices = productServices;
+            _orderServices = orderServices;
             PopulateComboBoxes().ConfigureAwait(false);
         }
 
@@ -58,9 +59,6 @@ namespace CMS22_Assignment2
         {
             try
             {
-                var customer = (KeyValuePair<int, string>)cb_Customer.SelectedItem;
-                var customerKey = customer.Key;
-
                 var product = (KeyValuePair<int, string>)cb_Products.SelectedItem;
                 var productKey = product.Key;
 
@@ -68,10 +66,8 @@ namespace CMS22_Assignment2
 
                 var orderRow = new OrderRowModel
                 {
-                    OrCustomerId = customerKey,
                     OrProductId = productKey,
                     OrPrice = productReq.Price,
-                    OrProductName = productReq.ProductName,
                     OrQuantity = int.Parse(tb_Quantity.Text)
                 };
 
@@ -90,12 +86,17 @@ namespace CMS22_Assignment2
             var customer = (KeyValuePair<int, string>)cb_Customer.SelectedItem;
             var customerKey = customer.Key;
 
-            var order = new OrderModel
+            var order = new OrderEntity
             {
                 CustomerId = customerKey,
-                DateTime = DateTime.Now
+                Orderdate = DateTime.Now,
             };
             await _orderServices.CreateAsync(order);
+            await _orderServices.CreateRowsAsync(_orderRows, order.OrderId);
+            _orderRows.Clear();
+            RefreshOrderRows();
+            cb_Customer.SelectedIndex = -1;
+            cb_Products.SelectedIndex = -1;
         }
 
         public void RefreshOrderRows()
