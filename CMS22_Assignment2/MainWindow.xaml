@@ -100,7 +100,7 @@
 
         </Grid>
 
-        <Grid x:Name="CustomerView" Visibility="Visible">
+        <Grid x:Name="CustomerView" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
@@ -131,6 +131,21 @@
             </StackPanel>
             
         </Grid>
+
+        <Grid x:Name="ProductView" Visibility="Visible">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel>
+                <TextBlock Text="Produkt"/>
+                
+            </StackPanel>
+
+        </Grid>
+        
+        
     </Grid>
 </Window>
     
