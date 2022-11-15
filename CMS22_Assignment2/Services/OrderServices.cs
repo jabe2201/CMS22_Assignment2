@@ -32,9 +32,9 @@ namespace CMS22_Assignment2.Services
                 var orderRow = new OrderRowEntity
                 {
                     OrderId = orderId,
-                    ProductId = row.OrProductId,
-                    Quantity = row.OrQuantity,
-                    Price = row.OrPrice
+                    ProductId = row.ProductId,
+                    Quantity = row.Quantity,
+                    Price = row.Price
                 };
                 _context.Add(orderRow);
             }

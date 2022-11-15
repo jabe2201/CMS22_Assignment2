@@ -8,13 +8,15 @@ namespace CMS22_Assignment2.Models
 {
     public class OrderRowModel
     {
-        public int OrOrderId { get; set; }
+        public int OrderId { get; set; }
 
-        public int OrProductId { get; set; }
+        public int ProductId { get; set; }
 
-        public decimal OrPrice { get; set; }
+        public string ProductName { get; set; } = null!;
 
-        public int OrQuantity { get; set; }
+        public decimal Price { get; set; }
+
+        public int Quantity { get; set; }
 
     }
 }

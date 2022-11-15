@@ -66,9 +66,10 @@ namespace CMS22_Assignment2
 
                 var orderRow = new OrderRowModel
                 {
-                    OrProductId = productKey,
-                    OrPrice = productReq.Price,
-                    OrQuantity = int.Parse(tb_Quantity.Text)
+                    ProductId = productKey,
+                    Price = productReq.Price,
+                    Quantity = int.Parse(tb_Quantity.Text),
+                    ProductName = productReq.ProductName
                 };
 
                 _orderRows.Add(orderRow);
@@ -88,7 +89,7 @@ namespace CMS22_Assignment2
             decimal sum = 0;
             foreach(var price in _orderRows)
             {
-                sum += price.OrPrice;
+                sum += price.Price;
             }
 
             var order = new OrderEntity
