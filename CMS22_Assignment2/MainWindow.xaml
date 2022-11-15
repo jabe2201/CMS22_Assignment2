@@ -51,38 +51,45 @@
             <Grid Grid.Row="3">
                 <ComboBox x:Name="cb_Products" VerticalAlignment="Center" FontSize="12"/>
             </Grid>
-
-            <Grid Grid.Row="4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="6*"/>
-                    <ColumnDefinition Width="30*"/>
-                    <ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="5*"/>
-                </Grid.ColumnDefinitions>
                 
-                <TextBlock Text="Id" Grid.Column="0" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="5 0 0 0"/>
-                <TextBlock Text="Produkt" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                <TextBlock Text="Pris" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                <TextBlock Text="Antal" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 5 0"/>
-            </Grid>
-
-           
-                
-            <ListView Grid.Row="5" x:Name="lv_OrderRows" Margin="0,5,0,0" Background="#f5f7f7">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding ProductId}"/>
-                            <TextBlock Text="{Binding ProductName}"/>
-                            <TextBlock Text="{Binding Price}"/>
-                            <TextBlock Text="{Binding Quantity}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+            <ListView Grid.Row="5" x:Name="lv_OrderRows" Background="#f5f7f7">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ProduktId" Width="60" DisplayMemberBinding="{Binding ProductId}">
+                            <GridViewColumn.HeaderContainerStyle>
+                                <Style TargetType="GridViewColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                    <Setter Property="Background" Value="#e8eaeb"/>
+                                </Style>
+                            </GridViewColumn.HeaderContainerStyle>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Produktnamn" Width="290" DisplayMemberBinding="{Binding ProductName}">
+                            <GridViewColumn.HeaderContainerStyle>
+                                <Style TargetType="GridViewColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                    <Setter Property="Background" Value="#e8eaeb"/>
+                                </Style>
+                            </GridViewColumn.HeaderContainerStyle>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Pris" Width="100" DisplayMemberBinding="{Binding Price}">
+                            <GridViewColumn.HeaderContainerStyle>
+                                <Style TargetType="GridViewColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                    <Setter Property="Background" Value="#e8eaeb"/>
+                                </Style>
+                            </GridViewColumn.HeaderContainerStyle>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Antal" Width="40" DisplayMemberBinding="{Binding Quantity}">
+                            <GridViewColumn.HeaderContainerStyle>
+                                <Style TargetType="GridViewColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                    <Setter Property="Background" Value="#e8eaeb"/>
+                                </Style>
+                            </GridViewColumn.HeaderContainerStyle>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
             </ListView>
-            
-
-            
 
             <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Text="Antal" VerticalAlignment="Center" FontSize="15"/>
