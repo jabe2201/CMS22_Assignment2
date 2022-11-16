@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="OrderManager" Height="800" Width="550" Background="#e8eaeb">
     <Grid Margin="20" Background="#e8eaeb">
-        <Grid x:Name="OrderView" Visibility="Visible">
+        <Grid x:Name="OrderView" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="31*"/>
                 <RowDefinition Height="58*"/>
@@ -21,7 +21,7 @@
             <Grid Grid.Row="0">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Kund" FontSize="15" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-                    <Button Content="&#xE710;" FontWeight="Bold" Foreground="#5d6569" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="435 0 0 0" Padding="5">
+                    <Button x:Name="bt_ViewToCustomer" Click="bt_ViewToCustomer_Click" Content="&#xE710;" FontWeight="Bold" Foreground="#5d6569" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="429 0 0 0" Padding="5">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="20"/>
@@ -38,7 +38,7 @@
             <Grid Grid.Row="2">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Produkter" FontSize="15" VerticalAlignment="Bottom"/>
-                    <Button Content="&#xE710;" FontWeight="Bold" Foreground="#5d6569" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="405 0 0 0" Padding="5">
+                    <Button x:Name="bt_ViewToProduct" Click="bt_ViewToProduct_Click" Content="&#xE710;" FontWeight="Bold" Foreground="#5d6569" FontFamily="Segoe MDL2 Assets" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="400 0 0 0" Padding="5">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="20"/>
@@ -100,14 +100,43 @@
 
         </Grid>
 
-        <Grid x:Name="CustomerView" Visibility="Visible">
+        <Grid x:Name="CustomerView" Visibility="Collapsed">
             <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock  Grid.Column="0" Text="Skapa ny kund" FontSize="20" FontWeight="Bold" Foreground="#6e6b6b"/>
+                <Button Grid.Column="1" 
+                        x:Name="bt_ReturnCustomerView"
+                        Click="bt_ReturnCustomerView_Click"
+                        Content="&#xE72B;" 
+                        FontFamily="Segoe MDL2 Assets" 
+                        FontWeight="Bold" 
+                        Padding="7" 
+                        Foreground="#5d6569"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0 0 10 0"
+                        FontSize="15"
+                        >
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="25"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
             
-            <StackPanel Grid.Row="0">
-                <TextBlock Text="Skapa ny kund" FontSize="20" FontWeight="Bold" Foreground="#6e6b6b"/>
+
+            <StackPanel Margin="0 20 0 0" Grid.Row="1">
                 <TextBlock Text="Förnamn" Margin="0 30 0 5" FontSize="15" Foreground="#6e6b6b"/>
                 <TextBox x:Name="tb_FirstName" FontSize="15" Padding="0 5"/>
                 <TextBlock Text="Efternamn" Margin="0 5" FontSize="15" Foreground="#6e6b6b"/>
@@ -126,7 +155,7 @@
                 <ComboBox x:Name="cb_CustomerEdit" FontSize="15" Padding="0 5"/>
             </StackPanel>
 
-            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 0 30">
+            <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 0 30">
                 <Button Content="Edit" Margin="0 0 20 0" FontSize="20" Padding="20 5 20 5"/>
                 <Button Content="Add" FontSize="20" Padding="20 5 20 5"/>
             </StackPanel>
@@ -136,11 +165,38 @@
         <Grid x:Name="ProductView" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <StackPanel Margin="0 20 0 0" Grid.Row="0">
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
                 <TextBlock Text="Skapa ny Produkt" FontSize="20" FontWeight="Bold" Margin="0 0 0 10" Foreground="#6e6b6b"/>
+                <Button Grid.Column="1"
+                        x:Name="bt_ReturnProductView"
+                        Click="bt_ReturnProductView_Click"
+                        Content="&#xE72B;" 
+                        FontFamily="Segoe MDL2 Assets" 
+                        FontWeight="Bold" 
+                        Padding="7" 
+                        Foreground="#5d6569"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0 0 10 0"
+                        FontSize="15"
+                        >
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="25"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+
+            <StackPanel Margin="0 20 0 0" Grid.Row="1">
                 <TextBlock Text="Produkt" Margin="0 5" FontSize="15" Foreground="#6e6b6b"/>
                 <TextBox x:Name="tb_ProductName" FontSize="15" Padding="0 5"/>
                 <TextBlock Text="Beskrivning" Margin="0 5" FontSize="15" Foreground="#6e6b6b"/>
@@ -151,7 +207,7 @@
                 <ComboBox x:Name="cb_ProductEdit" FontSize="15" Padding="0 5" Margin="0 10 0 0"/>
             </StackPanel>
 
-            <StackPanel Grid.Row="1" Margin="0 20 0 0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <StackPanel Grid.Row="2" Margin="0 20 0 0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
                 <Button x:Name="bt_ProductEdit" Margin=" 0 0 20 0" Content="Edit" FontSize="20" Padding="20 5 20 5"/>
                 <Button x:Name="bt_ProductAdd" Content="Add" FontSize="20" Padding="20 5 20 5"/>
             </StackPanel>

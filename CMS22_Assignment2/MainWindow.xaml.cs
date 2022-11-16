@@ -55,12 +55,14 @@ namespace CMS22_Assignment2
                 customers.Add(new KeyValuePair<int, string>(customer.Id, customer.FullName));
 
             cb_Customer.ItemsSource = customers;
+            cb_CustomerEdit.ItemsSource = customers;
 
             var products = new ObservableCollection<KeyValuePair<int, string>>();
             foreach (var product in await _productServices.GetAllAsync())
                 products.Add(new KeyValuePair<int, string>(product.Id, product.ProductName));
 
             cb_Products.ItemsSource = products;
+            cb_ProductEdit.ItemsSource = products;
         }
 
         private async void bt_Add_ClickAsync(object sender, RoutedEventArgs e)
@@ -128,7 +130,38 @@ namespace CMS22_Assignment2
                     CustomerView.Visibility = Visibility.Collapsed;
                     ProductView.Visibility = Visibility.Collapsed;
                     break;
+                case MenuState.CustomerWindow:
+                    OrderView.Visibility = Visibility.Collapsed;
+                    CustomerView.Visibility = Visibility.Visible;
+                    ProductView.Visibility = Visibility.Collapsed;
+                    break;
+
+                case MenuState.ProductWindow:
+                    OrderView.Visibility = Visibility.Collapsed;
+                    CustomerView.Visibility = Visibility.Collapsed;
+                    ProductView.Visibility = Visibility.Visible;
+                    break;
             }
+        }
+
+        private void bt_ViewToCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            MenuPresenter(MenuState.CustomerWindow);
+        }
+
+        private void bt_ViewToProduct_Click(object sender, RoutedEventArgs e)
+        {
+            MenuPresenter(MenuState.ProductWindow);
+        }
+
+        private void bt_ReturnCustomerView_Click(object sender, RoutedEventArgs e)
+        {
+            MenuPresenter(MenuState.MainWindow);
+        }
+
+        private void bt_ReturnProductView_Click(object sender, RoutedEventArgs e)
+        {
+            MenuPresenter(MenuState.MainWindow);
         }
     }
 }
