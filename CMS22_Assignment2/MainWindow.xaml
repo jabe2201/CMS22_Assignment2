@@ -107,21 +107,22 @@
             </Grid.RowDefinitions>
             
             <StackPanel Grid.Row="0">
-                <TextBlock Text="Förnamn" Margin="0 30 0 5" FontSize="15"/>
+                <TextBlock Text="Skapa ny kund" FontSize="20" FontWeight="Bold" Foreground="#6e6b6b"/>
+                <TextBlock Text="Förnamn" Margin="0 30 0 5" FontSize="15" Foreground="#6e6b6b"/>
                 <TextBox x:Name="tb_FirstName" FontSize="15" Padding="0 5"/>
-                <TextBlock Text="Efternamn" Margin="0 5" FontSize="15"/>
+                <TextBlock Text="Efternamn" Margin="0 5" FontSize="15" Foreground="#6e6b6b"/>
                 <TextBox x:Name="tb_LastName" FontSize="15" Padding="0 5"/>
-                <TextBlock Text="Email" Margin="0 5" FontSize="15"/>
+                <TextBlock Text="Email" Margin="0 5" FontSize="15" Foreground="#6e6b6b"/>
                 <TextBox x:Name="tb_Mail" FontSize="15" Padding="0 5"/>
-                <TextBlock Text="Telefonnummer" Margin="0 5" FontSize="15"/>
+                <TextBlock Text="Telefonnummer" Margin="0 5" FontSize="15" Foreground="#6e6b6b"/>
                 <TextBox x:Name="tb_Phone" FontSize="15" Padding="0 5"/>
-                <TextBlock Text="Adress" Margin="0 5" FontSize="15"/>
+                <TextBlock Text="Adress" Margin="0 5" FontSize="15" Foreground="#6e6b6b"/>
                 <TextBox x:Name="tb_StreetAddress" FontSize="15" Padding="0 5"/>
-                <TextBlock Text="Postnummer" Margin="0 5" FontSize="15"/>
+                <TextBlock Text="Postnummer" Margin="0 5" FontSize="15" Foreground="#6e6b6b"/>
                 <TextBox x:Name="tb_PostalCode" FontSize="15" Padding="0 5"/>
-                <TextBlock Text="Ort" Margin="0 5" FontSize="15"/>
+                <TextBlock Text="Ort" Margin="0 5" FontSize="15" Foreground="#6e6b6b"/>
                 <TextBox x:Name="tb_City" FontSize="15" Padding="0 5"/>
-                <TextBlock Text="Uppdatera befintlig kund" Margin="0 10" FontSize="15"/>
+                <TextBlock Text="Uppdatera befintlig kund" Margin="0 10" FontSize="15" Foreground="#6e6b6b"/>
                 <ComboBox x:Name="cb_CustomerEdit" FontSize="15" Padding="0 5"/>
             </StackPanel>
 
@@ -138,9 +139,21 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <StackPanel>
-                <TextBlock Text="Produkt"/>
-                
+            <StackPanel Margin="0 20 0 0" Grid.Row="0">
+                <TextBlock Text="Skapa ny Produkt" FontSize="20" FontWeight="Bold" Margin="0 0 0 10" Foreground="#6e6b6b"/>
+                <TextBlock Text="Produkt" Margin="0 5" FontSize="15" Foreground="#6e6b6b"/>
+                <TextBox x:Name="tb_ProductName" FontSize="15" Padding="0 5"/>
+                <TextBlock Text="Beskrivning" Margin="0 5" FontSize="15" Foreground="#6e6b6b"/>
+                <TextBox x:Name="tb_ProductDescription" FontSize="15" Padding="0 5"/>
+                <TextBlock Text="Pris" Margin="0 5" FontSize="15" Foreground="#6e6b6b"/>
+                <TextBox x:Name="tb_ProductPrice" FontSize="15" Padding="0 5"/>
+                <TextBlock Text="Uppdater Produkt" FontSize="15" FontWeight="Bold" Foreground="#6e6b6b" Margin="0 15 0 0"/>
+                <ComboBox x:Name="cb_ProductEdit" FontSize="15" Padding="0 5" Margin="0 10 0 0"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Margin="0 20 0 0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Button x:Name="bt_ProductEdit" Margin=" 0 0 20 0" Content="Edit" FontSize="20" Padding="20 5 20 5"/>
+                <Button x:Name="bt_ProductAdd" Content="Add" FontSize="20" Padding="20 5 20 5"/>
             </StackPanel>
 
         </Grid>

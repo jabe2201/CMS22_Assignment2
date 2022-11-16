@@ -21,9 +21,7 @@ using System.Windows.Shapes;
 
 namespace CMS22_Assignment2
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    
     public partial class MainWindow : Window
     {
         private readonly CustomerServices _customerServices;
