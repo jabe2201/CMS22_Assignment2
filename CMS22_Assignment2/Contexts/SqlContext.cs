@@ -23,5 +23,6 @@ namespace CMS22_Assignment2.Contexts
         public DbSet<OrderEntity> Orders { get; set; }
         public DbSet<ProductEntity> Products { get; set; }
         public DbSet<OrderRowEntity> OrdersRows { get; set; }
+        public DbSet<CustomerAddressEntity> Addresses { get; set; }
     }
 }

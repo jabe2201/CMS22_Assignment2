@@ -13,17 +13,18 @@ namespace CMS22_Assignment2.Models.Entities
         [Key]
         public int AddressId { get; set; }
         public string StreetName { get; set; } = null!;
-        private string _postalCode;
+        private string _postalCode = null!;
         public string PostalCode
         {
             get { return _postalCode; }
             set { _postalCode = value.Trim().Replace(" ",""); }
         }
-        private string _city;
+        private string _city = null!;
         public string City
         {
             get { return _city; }
             set { _city = value.Trim(); }
         }
+        public ICollection<CustomerEntity>? Customers { get; set; }
     }
 }
