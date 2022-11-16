@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,12 +30,21 @@ namespace CMS22_Assignment2
         private readonly OrderServices _orderServices;
         private ObservableCollection<OrderRowModel> _orderRows = new ObservableCollection<OrderRowModel>();
 
+
+        private enum MenuState
+        {
+            MainWindow,
+            CustomerWindow,
+            ProductWindow
+        }
+
         public MainWindow(CustomerServices customerServices, ProductServices productServices, OrderServices orderServices)
         {
             InitializeComponent();
             _customerServices = customerServices;
             _productServices = productServices;
             _orderServices = orderServices;
+            MenuPresenter(MenuState.MainWindow);
             PopulateComboBoxes().ConfigureAwait(false);
         }
 
@@ -107,6 +117,18 @@ namespace CMS22_Assignment2
         public void RefreshOrderRows()
         {
             lv_OrderRows.ItemsSource = _orderRows;
+        }
+
+        private void MenuPresenter(MenuState menuState)
+        {
+            switch (menuState)
+            {
+                case MenuState.MainWindow:
+                    OrderView.Visibility = Visibility.Visible;
+                    CustomerView.Visibility = Visibility.Collapsed;
+                    ProductView.Visibility = Visibility.Collapsed;
+                    break;
+            }
         }
     }
 }

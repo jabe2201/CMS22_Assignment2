@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="OrderManager" Height="800" Width="550" Background="#e8eaeb">
     <Grid Margin="20" Background="#e8eaeb">
-        <Grid x:Name="OrderView" Visibility="Collapsed">
+        <Grid x:Name="OrderView" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="31*"/>
                 <RowDefinition Height="58*"/>
@@ -100,7 +100,7 @@
 
         </Grid>
 
-        <Grid x:Name="CustomerView" Visibility="Collapsed">
+        <Grid x:Name="CustomerView" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
