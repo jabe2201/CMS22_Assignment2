@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CMS22Assignment2.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20221114195307_init")]
+    [Migration("20221116134659_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -25,6 +25,31 @@ namespace CMS22Assignment2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CMS22_Assignment2.Models.Entities.CustomerAddressEntity", b =>
+                {
+                    b.Property<int>("AddressId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressId"));
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AddressId");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("CMS22_Assignment2.Models.Entities.CustomerEntity", b =>
                 {
                     b.Property<int>("CustomerId")
@@ -32,6 +57,9 @@ namespace CMS22Assignment2.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -42,6 +70,8 @@ namespace CMS22Assignment2.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CustomerId");
+
+                    b.HasIndex("AddressId");
 
                     b.ToTable("Customers");
                 });
@@ -111,6 +141,17 @@ namespace CMS22Assignment2.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("CMS22_Assignment2.Models.Entities.CustomerEntity", b =>
+                {
+                    b.HasOne("CMS22_Assignment2.Models.Entities.CustomerAddressEntity", "Address")
+                        .WithMany("Customers")
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
             modelBuilder.Entity("CMS22_Assignment2.Models.Entities.OrderEntity", b =>
                 {
                     b.HasOne("CMS22_Assignment2.Models.Entities.CustomerEntity", "Customer")
@@ -139,6 +180,11 @@ namespace CMS22Assignment2.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("CMS22_Assignment2.Models.Entities.CustomerAddressEntity", b =>
+                {
+                    b.Navigation("Customers");
                 });
 
             modelBuilder.Entity("CMS22_Assignment2.Models.Entities.CustomerEntity", b =>
