@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CMS22_Assignment2.Services
 {
@@ -21,8 +22,44 @@ namespace CMS22_Assignment2.Services
             _context = context;
         }
 
-       public async Task<IEnumerable<CustomerRequest>> GetAllAsync()
+       public async void Create(CustomerRequest customerReq)
         {
+            try
+            {
+                var customer = new CustomerEntity
+                {
+                    FirstName = customerReq.FirstName,
+                    LastName = customerReq.LastName,
+                    Email = customerReq.Email,
+                    Phone = customerReq.Phone,
+                };
+
+                var addressResult = await _context.Addresses.FirstOrDefaultAsync(x => x.StreetName.ToLower() == customerReq.StreetName.ToLower() && x.PostalCode == customerReq.PostalCode && x.City.ToLower() == customerReq.City.ToLower());
+                if(addressResult == null)
+                {
+                    addressResult = new CustomerAddressEntity
+                    {
+                        StreetName = customerReq.StreetName,
+                        PostalCode = customerReq.PostalCode,
+                        City = customerReq.City,
+                    };
+                    _context.Addresses.Add(addressResult);
+                    await _context.SaveChangesAsync();
+                }
+                customer.AddressId = addressResult.AddressId;
+               
+
+                _context.Customers.Add(customer);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); 
+            
+                MessageBox.Show("Kund kunde inte läggas till.");
+            }
+       }
+
+       public async Task<IEnumerable<CustomerRequest>> GetAllAsync()
+       {
             var customers = new List<CustomerRequest>();
 
             try
@@ -41,7 +78,7 @@ namespace CMS22_Assignment2.Services
             }
             catch (Exception ex) { Debug.WriteLine(ex.Message); }
             return customers;
-        }
+       }
 
         public async Task<ActionResult> GetAsync(int id)
         {

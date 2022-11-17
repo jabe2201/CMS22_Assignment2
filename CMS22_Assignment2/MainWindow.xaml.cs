@@ -1,6 +1,8 @@
 ﻿using CMS22_Assignment2.Models;
 using CMS22_Assignment2.Models.Entities;
 using CMS22_Assignment2.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,7 +31,6 @@ namespace CMS22_Assignment2
         private readonly ProductServices _productServices;
         private readonly OrderServices _orderServices;
         private ObservableCollection<OrderRowModel> _orderRows = new ObservableCollection<OrderRowModel>();
-
 
         private enum MenuState
         {
@@ -89,9 +90,7 @@ namespace CMS22_Assignment2
                 
             }
             catch (Exception ex) { Debug.WriteLine(ex.Message); }
-
         }
-
         private async void bt_PutOrder_ClickAsync(object sender, RoutedEventArgs e)
         {
             var customer = (KeyValuePair<int, string>)cb_Customer.SelectedItem;
@@ -162,6 +161,34 @@ namespace CMS22_Assignment2
         private void bt_ReturnProductView_Click(object sender, RoutedEventArgs e)
         {
             MenuPresenter(MenuState.MainWindow);
+        }
+           
+            //var result = await _context.Customers.FirstOrDefaultAsync(x => x.Email == customerReq.Email);
+
+            //if (result == null)
+            //{
+            //    MessageBox.Show("En kund är redan knuten till denna mail. Vänligen ange en annan.");
+            //}
+
+        private async void bt_AddCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            var customer = new CustomerRequest
+            {
+                FirstName = tb_FirstName.Text,
+                LastName = tb_LastName.Text,
+                Email = tb_Mail.Text,
+                Phone = tb_Phone.Text,
+                StreetName = tb_StreetAddress.Text,
+                PostalCode = tb_PostalCode.Text,
+                City = tb_City.Text
+            };
+            _customerServices.Create(customer);
+            
+        }
+
+        private void bt_EditCustomer_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

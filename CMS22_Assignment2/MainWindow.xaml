@@ -156,8 +156,8 @@
             </StackPanel>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 0 30">
-                <Button Content="Edit" Margin="0 0 20 0" FontSize="20" Padding="20 5 20 5"/>
-                <Button Content="Add" FontSize="20" Padding="20 5 20 5"/>
+                <Button x:Name="bt_EditCustomer" Click="bt_EditCustomer_Click" Content="Edit" Margin="0 0 20 0" FontSize="20" Padding="20 5 20 5"/>
+                <Button x:Name="bt_AddCustomer" Click="bt_AddCustomer_Click" Content="Add" FontSize="20" Padding="20 5 20 5"/>
             </StackPanel>
             
         </Grid>

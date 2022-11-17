@@ -25,6 +25,6 @@ namespace CMS22_Assignment2.Models.Entities
             get { return _city; }
             set { _city = value.Trim(); }
         }
-        public ICollection<CustomerEntity>? Customers { get; set; }
+        public ICollection<CustomerEntity>? Customers { get; set; } = new List<CustomerEntity>();
     }
 }
