@@ -26,15 +26,23 @@ namespace CMS22_Assignment2.Services
         {
             try
             {
-                var customer = new CustomerEntity
+                var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Email == customerReq.Email);
+                if(customer == null)
                 {
-                    FirstName = customerReq.FirstName,
-                    LastName = customerReq.LastName,
-                    Email = customerReq.Email,
-                    Phone = customerReq.Phone,
-                };
+                    customer = new CustomerEntity
+                    {
+                        FirstName = customerReq.FirstName,
+                        LastName = customerReq.LastName,
+                        Email = customerReq.Email,
+                        Phone = customerReq.Phone,
+                    };
+                }
+                else
+                {
+                    MessageBox.Show("Det finns redan en kund med denna Mail.");
+                }
 
-                var addressResult = await _context.Addresses.FirstOrDefaultAsync(x => x.StreetName.ToLower() == customerReq.StreetName.ToLower() && x.PostalCode == customerReq.PostalCode && x.City.ToLower() == customerReq.City.ToLower());
+                var addressResult = await _context.Addresses.FirstOrDefaultAsync(x => x.StreetName.ToLower() == customerReq.StreetName.ToLower() && x.PostalCode == customerReq.PostalCode.Trim() && x.City.ToLower() == customerReq.City.ToLower());
                 if(addressResult == null)
                 {
                     addressResult = new CustomerAddressEntity
@@ -48,11 +56,10 @@ namespace CMS22_Assignment2.Services
                 }
                 customer.AddressId = addressResult.AddressId;
                
-
                 _context.Customers.Add(customer);
                 await _context.SaveChangesAsync();
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); 
+            catch (Exception ex) { Debug.WriteLine(ex.Message); 
             
                 MessageBox.Show("Kund kunde inte läggas till.");
             }

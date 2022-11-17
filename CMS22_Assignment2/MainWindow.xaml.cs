@@ -66,6 +66,34 @@ namespace CMS22_Assignment2
             cb_ProductEdit.ItemsSource = products;
         }
 
+        public void RefreshOrderRows()
+        {
+            lv_OrderRows.ItemsSource = _orderRows;
+        }
+
+        private void MenuPresenter(MenuState menuState)
+        {
+            switch (menuState)
+            {
+                case MenuState.MainWindow:
+                    OrderView.Visibility = Visibility.Visible;
+                    CustomerView.Visibility = Visibility.Collapsed;
+                    ProductView.Visibility = Visibility.Collapsed;
+                    break;
+                case MenuState.CustomerWindow:
+                    OrderView.Visibility = Visibility.Collapsed;
+                    CustomerView.Visibility = Visibility.Visible;
+                    ProductView.Visibility = Visibility.Collapsed;
+                    break;
+
+                case MenuState.ProductWindow:
+                    OrderView.Visibility = Visibility.Collapsed;
+                    CustomerView.Visibility = Visibility.Collapsed;
+                    ProductView.Visibility = Visibility.Visible;
+                    break;
+            }
+        }
+
         private async void bt_Add_ClickAsync(object sender, RoutedEventArgs e)
         {
             try
@@ -115,34 +143,6 @@ namespace CMS22_Assignment2
             cb_Products.SelectedIndex = -1;
         }
 
-        public void RefreshOrderRows()
-        {
-            lv_OrderRows.ItemsSource = _orderRows;
-        }
-
-        private void MenuPresenter(MenuState menuState)
-        {
-            switch (menuState)
-            {
-                case MenuState.MainWindow:
-                    OrderView.Visibility = Visibility.Visible;
-                    CustomerView.Visibility = Visibility.Collapsed;
-                    ProductView.Visibility = Visibility.Collapsed;
-                    break;
-                case MenuState.CustomerWindow:
-                    OrderView.Visibility = Visibility.Collapsed;
-                    CustomerView.Visibility = Visibility.Visible;
-                    ProductView.Visibility = Visibility.Collapsed;
-                    break;
-
-                case MenuState.ProductWindow:
-                    OrderView.Visibility = Visibility.Collapsed;
-                    CustomerView.Visibility = Visibility.Collapsed;
-                    ProductView.Visibility = Visibility.Visible;
-                    break;
-            }
-        }
-
         private void bt_ViewToCustomer_Click(object sender, RoutedEventArgs e)
         {
             MenuPresenter(MenuState.CustomerWindow);
@@ -183,7 +183,6 @@ namespace CMS22_Assignment2
                 City = tb_City.Text
             };
             _customerServices.Create(customer);
-            
         }
 
         private void bt_EditCustomer_Click(object sender, RoutedEventArgs e)
