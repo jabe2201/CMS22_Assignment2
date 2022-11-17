@@ -1,10 +1,12 @@
 ﻿using CMS22_Assignment2.Contexts;
 using CMS22_Assignment2.Models;
+using CMS22_Assignment2.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.DirectoryServices;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +20,19 @@ namespace CMS22_Assignment2.Services
         public ProductServices(SqlContext context)
         {
             _context = context;
+        }
+
+        public async void Create(ProductRequest productRequest)
+        {
+            var product = _context.Products.FirstOrDefault(x => x.ProductName.ToLower() == productRequest.ProductName.ToLower());
+            if(product == null)
+            {
+                product = new ProductEntity
+                {
+                    ProductName = productRequest.ProductName,
+
+                };
+            }
         }
 
         public async Task<IEnumerable<ProductRequest>> GetAllAsync()

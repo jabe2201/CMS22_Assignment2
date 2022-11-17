@@ -176,15 +176,8 @@ namespace CMS22_Assignment2
         {
             MenuPresenter(MenuState.MainWindow);
         }
-           
-            //var result = await _context.Customers.FirstOrDefaultAsync(x => x.Email == customerReq.Email);
 
-            //if (result == null)
-            //{
-            //    MessageBox.Show("En kund är redan knuten till denna mail. Vänligen ange en annan.");
-            //}
-
-        private async void bt_AddCustomer_Click(object sender, RoutedEventArgs e)
+        private void bt_AddCustomer_Click(object sender, RoutedEventArgs e)
         {
             var customer = new CustomerRequest
             {
