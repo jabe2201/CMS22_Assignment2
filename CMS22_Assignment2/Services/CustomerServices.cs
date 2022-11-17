@@ -58,6 +58,7 @@ namespace CMS22_Assignment2.Services
                
                 _context.Customers.Add(customer);
                 await _context.SaveChangesAsync();
+                MessageBox.Show("Kund har lagts till");
             }
             catch (Exception ex) { Debug.WriteLine(ex.Message); 
             

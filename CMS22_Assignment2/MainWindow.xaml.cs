@@ -46,7 +46,6 @@ namespace CMS22_Assignment2
             _productServices = productServices;
             _orderServices = orderServices;
             MenuPresenter(MenuState.MainWindow);
-            PopulateComboBoxes().ConfigureAwait(false);
         }
 
         public async Task PopulateComboBoxes()
@@ -73,6 +72,7 @@ namespace CMS22_Assignment2
 
         private void MenuPresenter(MenuState menuState)
         {
+            PopulateComboBoxes().ConfigureAwait(false);
             switch (menuState)
             {
                 case MenuState.MainWindow:
@@ -92,6 +92,20 @@ namespace CMS22_Assignment2
                     ProductView.Visibility = Visibility.Visible;
                     break;
             }
+        }
+
+        public void ClearAllFields()
+        {
+            tb_FirstName.Text = "";
+            tb_LastName.Text = "";
+            tb_Mail.Text = "";
+            tb_Phone.Text = "";
+            tb_StreetAddress.Text = "";
+            tb_PostalCode.Text = "";
+            tb_City.Text = "";
+            tb_ProductName.Text = "";
+            tb_ProductDescription.Text = "";
+            tb_ProductPrice.Text = "";
         }
 
         private async void bt_Add_ClickAsync(object sender, RoutedEventArgs e)
@@ -182,6 +196,7 @@ namespace CMS22_Assignment2
                 PostalCode = tb_PostalCode.Text,
                 City = tb_City.Text
             };
+            ClearAllFields();
             _customerServices.Create(customer);
         }
 
