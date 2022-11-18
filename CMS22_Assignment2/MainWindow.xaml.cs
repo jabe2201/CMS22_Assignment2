@@ -195,6 +195,15 @@ namespace CMS22_Assignment2
             _customerServices.Create(customer);
         }
 
+        private async void cb_CustomerEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var customer = (KeyValuePair<int, string>)cb_ProductEdit.SelectedItem;
+
+            var customerReq = await _customerServices.GetAsync(customer.Key);
+
+            tb_City.Text = customerReq.FirstName
+        }
+
         private void bt_EditCustomer_Click(object sender, RoutedEventArgs e)
         {
 
@@ -216,7 +225,7 @@ namespace CMS22_Assignment2
         {
             var product = (KeyValuePair<int, string>)cb_ProductEdit.SelectedItem;
 
-           var productReq =await _productServices.GetAsync(product.Key);
+            var productReq =await _productServices.GetAsync(product.Key);
             
             tb_ProductName.Text = productReq.ProductName;
             tb_ProductDescription.Text = productReq.ProductDescription;
@@ -238,5 +247,7 @@ namespace CMS22_Assignment2
             ClearAllFields();
             _productServices.UpdateProduct(productKey, productReq);
         }
+
+       
     }
 }

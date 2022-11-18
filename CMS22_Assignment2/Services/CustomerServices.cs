@@ -88,23 +88,31 @@ namespace CMS22_Assignment2.Services
             return customers;
        }
 
-        public async Task<ActionResult> GetAsync(int id)
+        public async Task<CustomerRequest> GetAsync(int id)
         {
             try
             {
                 var customerEntity = await _context.Customers.FindAsync(id);
-                if (customerEntity == null)
-                    return new NotFoundResult();
-
-                return new OkObjectResult(new CustomerRequest
+                
+                var customerReq = new CustomerRequest
                 {
                     Id = customerEntity.CustomerId,
                     FirstName = customerEntity.FirstName,
-                    LastName = customerEntity.LastName
-                });
+                    LastName = customerEntity.LastName,
+                    Email = customerEntity.Email,
+                    Phone = customerEntity.Phone,
+                };
+                
+                var addressEntity = await _context.Addresses.FindAsync(customerEntity.AddressId);
+
+                customerReq.StreetName = addressEntity.StreetName;
+                customerReq.PostalCode = addressEntity.PostalCode;
+                customerReq.City = addressEntity.City;
+
+                return customerReq;
             }
             catch(Exception ex) { Debug.WriteLine(ex.Message); }
-            return new BadRequestResult();
+            return new CustomerRequest();
         }
     }
 }
