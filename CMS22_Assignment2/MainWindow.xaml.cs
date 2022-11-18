@@ -48,7 +48,7 @@ namespace CMS22_Assignment2
             MenuPresenter(MenuState.MainWindow);
         }
 
-        public async Task PopulateComboBoxes()
+        private async Task PopulateComboBoxes()
         {
             var customers = new ObservableCollection<KeyValuePair<int, string>>();
             foreach (var customer in await _customerServices.GetAllAsync())
@@ -65,7 +65,7 @@ namespace CMS22_Assignment2
             cb_ProductEdit.ItemsSource = products;
         }
 
-        public void RefreshOrderRows()
+        private void RefreshOrderRows()
         {
             lv_OrderRows.ItemsSource = _orderRows;
         }
@@ -94,7 +94,7 @@ namespace CMS22_Assignment2
             }
         }
 
-        public void ClearAllFields()
+        private void ClearAllFields()
         {
             tb_FirstName.Text = "";
             tb_LastName.Text = "";
@@ -170,11 +170,13 @@ namespace CMS22_Assignment2
         private void bt_ReturnCustomerView_Click(object sender, RoutedEventArgs e)
         {
             MenuPresenter(MenuState.MainWindow);
+            ClearAllFields();
         }
 
         private void bt_ReturnProductView_Click(object sender, RoutedEventArgs e)
         {
             MenuPresenter(MenuState.MainWindow);
+            ClearAllFields();
         }
 
         private void bt_AddCustomer_Click(object sender, RoutedEventArgs e)
@@ -196,6 +198,45 @@ namespace CMS22_Assignment2
         private void bt_EditCustomer_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void bt_ProductAdd_Click(object sender, RoutedEventArgs e)
+        {
+            var product = new ProductRequest
+            {
+                ProductName = tb_ProductName.Text,
+                ProductDescription = tb_ProductDescription.Text,
+                Price = decimal.Parse(tb_ProductPrice.Text)
+            };
+            ClearAllFields();
+            _productServices.Create(product);
+        }
+
+        private async void cb_ProductEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var product = (KeyValuePair<int, string>)cb_ProductEdit.SelectedItem;
+
+           var productReq =await _productServices.GetAsync(product.Key);
+            
+            tb_ProductName.Text = productReq.ProductName;
+            tb_ProductDescription.Text = productReq.ProductDescription;
+            tb_ProductPrice.Text = productReq.Price.ToString();
+
+        }
+
+        private void bt_ProductEdit_Click(object sender, RoutedEventArgs e)
+        {
+            var product = (KeyValuePair<int, string>)cb_ProductEdit.SelectedItem;
+            var productKey = product.Key;
+
+            var productReq = new ProductRequest
+            {
+                ProductName = tb_ProductName.Text,
+                ProductDescription = tb_ProductDescription.Text,
+                Price = decimal.Parse(tb_ProductPrice.Text)
+            };
+            ClearAllFields();
+            _productServices.UpdateProduct(productKey, productReq);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace CMS22_Assignment2.Models.Entities
         [Key]
         public int ProductId { get; set; } 
         public string ProductName { get; set; } = null!;
-        public string ProductDescription { get; set; } = null!;
+        public string? ProductDescription { get; set; } 
         [Column (TypeName ="money")]
         public decimal Price { get; set; }
 

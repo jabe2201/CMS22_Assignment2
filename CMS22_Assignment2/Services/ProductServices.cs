@@ -10,6 +10,7 @@ using System.DirectoryServices;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CMS22_Assignment2.Services
 {
@@ -24,15 +25,32 @@ namespace CMS22_Assignment2.Services
 
         public async void Create(ProductRequest productRequest)
         {
-            var product = _context.Products.FirstOrDefault(x => x.ProductName.ToLower() == productRequest.ProductName.ToLower());
-            if(product == null)
+            try
             {
-                product = new ProductEntity
+                var product = _context.Products.FirstOrDefault(x => x.ProductName.ToLower() == productRequest.ProductName.ToLower());
+                if (product == null)
                 {
-                    ProductName = productRequest.ProductName,
-
-                };
+                    product = new ProductEntity
+                    {
+                        ProductName = productRequest.ProductName,
+                        ProductDescription = productRequest.ProductDescription,
+                        Price = productRequest.Price,
+                    };
+                    _context.Products.Add(product);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    MessageBox.Show("Det finns redan en produkt med detta namn");
+                }
             }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                MessageBox.Show("Produkt kunde inte läggas till.");
+            }
+
         }
 
         public async Task<IEnumerable<ProductRequest>> GetAllAsync()
@@ -68,11 +86,31 @@ namespace CMS22_Assignment2.Services
                 {
                     Id = productEntity.ProductId,
                     ProductName = productEntity.ProductName,
+                    ProductDescription = productEntity.ProductDescription,
                     Price = productEntity.Price
                 };
             }
             catch (Exception ex) { Debug.WriteLine(ex.Message); }
             return new ProductRequest();
+        }
+
+        public async void UpdateProduct(int id, ProductRequest productRequest)
+        {
+            //try
+            //{
+            var productEntity = await _context.Products.FindAsync(id);
+           
+            productEntity.ProductName = productRequest.ProductName;
+            productEntity.ProductDescription = productRequest.ProductDescription;
+            productEntity.Price = productRequest.Price;
+
+            _context.Entry(productEntity).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            //}
+            //catch (Exception ex) {Debug.WriteLine(ex.Message);
+
+            //    MessageBox.Show("Kunde inte uppdatera Produkt.");
+            //}
         }
     }
 }
