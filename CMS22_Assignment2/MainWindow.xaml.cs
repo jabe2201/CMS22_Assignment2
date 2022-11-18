@@ -179,7 +179,7 @@ namespace CMS22_Assignment2
             ClearAllFields();
         }
 
-        private void bt_AddCustomer_Click(object sender, RoutedEventArgs e)
+        private async void bt_AddCustomer_Click(object sender, RoutedEventArgs e)
         {
             var customer = new CustomerRequest
             {
@@ -193,23 +193,52 @@ namespace CMS22_Assignment2
             };
             ClearAllFields();
             _customerServices.Create(customer);
+            await PopulateComboBoxes();
         }
 
         private async void cb_CustomerEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var customer = (KeyValuePair<int, string>)cb_ProductEdit.SelectedItem;
+            if(cb_CustomerEdit.SelectedItem != null)
+            {
+                var customer = (KeyValuePair<int, string>)cb_CustomerEdit.SelectedItem;
 
-            var customerReq = await _customerServices.GetAsync(customer.Key);
+                var customerReq = await _customerServices.GetAsync(customer.Key);
 
-            tb_City.Text = customerReq.FirstName
+                tb_FirstName.Text = customerReq.FirstName;
+                tb_LastName.Text = customerReq.LastName;
+                tb_Mail.Text = customerReq.Email;
+                tb_Phone.Text = customerReq.Phone;
+                tb_StreetAddress.Text = customerReq.StreetName;
+                tb_PostalCode.Text = customerReq.PostalCode;
+                tb_City.Text = customerReq.City;
+            }
+            else
+            {
+                MenuPresenter(MenuState.CustomerWindow);
+            }
+            
         }
 
-        private void bt_EditCustomer_Click(object sender, RoutedEventArgs e)
+        private async void bt_EditCustomer_Click(object sender, RoutedEventArgs e)
         {
+            var customer = (KeyValuePair<int, string>)cb_CustomerEdit.SelectedItem;
+            var customerKey = customer.Key;
 
+            var customerReq = new CustomerRequest
+            {
+                FirstName = tb_FirstName.Text,
+                LastName = tb_LastName.Text,
+                Email = tb_Mail.Text,
+                Phone = tb_Phone.Text,
+                StreetName = tb_StreetAddress.Text,
+                PostalCode = tb_PostalCode.Text,
+                City = tb_City.Text
+            };
+            _customerServices.UpdateCustomer(customerKey, customerReq);
+            await PopulateComboBoxes();
         }
 
-        private void bt_ProductAdd_Click(object sender, RoutedEventArgs e)
+        private async void bt_ProductAdd_Click(object sender, RoutedEventArgs e)
         {
             var product = new ProductRequest
             {
@@ -219,23 +248,32 @@ namespace CMS22_Assignment2
             };
             ClearAllFields();
             _productServices.Create(product);
+            await PopulateComboBoxes();
         }
 
         private async void cb_ProductEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var product = (KeyValuePair<int, string>)cb_ProductEdit.SelectedItem;
+            if (cb_ProductEdit.SelectedItem != null)
+            {
+                var product = (KeyValuePair<int, string>)cb_ProductEdit.SelectedItem;
 
-            var productReq =await _productServices.GetAsync(product.Key);
-            
-            tb_ProductName.Text = productReq.ProductName;
-            tb_ProductDescription.Text = productReq.ProductDescription;
-            tb_ProductPrice.Text = productReq.Price.ToString();
+                var productReq = await _productServices.GetAsync(product.Key);
+
+                tb_ProductName.Text = productReq.ProductName;
+                tb_ProductDescription.Text = productReq.ProductDescription;
+                tb_ProductPrice.Text = productReq.Price.ToString();
+            }
+            else
+            {
+                MenuPresenter(MenuState.ProductWindow);
+            }
 
         }
 
-        private void bt_ProductEdit_Click(object sender, RoutedEventArgs e)
+        private async void bt_ProductEdit_Click(object sender, RoutedEventArgs e)
         {
             var product = (KeyValuePair<int, string>)cb_ProductEdit.SelectedItem;
+            cb_CustomerEdit.SelectedIndex = -1;
             var productKey = product.Key;
 
             var productReq = new ProductRequest
@@ -246,6 +284,7 @@ namespace CMS22_Assignment2
             };
             ClearAllFields();
             _productServices.UpdateProduct(productKey, productReq);
+            await PopulateComboBoxes();
         }
 
        

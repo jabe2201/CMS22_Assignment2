@@ -114,5 +114,49 @@ namespace CMS22_Assignment2.Services
             catch(Exception ex) { Debug.WriteLine(ex.Message); }
             return new CustomerRequest();
         }
+
+        public async void UpdateCustomer(int id, CustomerRequest customerRequest)
+        {
+            try
+            {
+                var customerEntity = await _context.Customers.FindAsync(id);
+
+                customerEntity.FirstName = customerRequest.FirstName;
+                customerEntity.LastName = customerRequest.LastName;
+                customerEntity.Phone = customerRequest.Phone;
+                customerEntity.Email = customerRequest.Email;
+
+                var addressResult = await _context.Addresses.FindAsync(customerEntity.AddressId);
+                if(addressResult.StreetName.ToLower() != customerRequest.StreetName.ToLower() && addressResult.PostalCode != customerRequest.PostalCode.Trim() && addressResult.City.ToLower() != customerRequest.City.ToLower())
+                {
+                    addressResult = new CustomerAddressEntity
+                    {
+                        StreetName = customerRequest.StreetName,
+                        PostalCode = customerRequest.PostalCode,
+                        City = customerRequest.City,
+                    };
+                    customerEntity.AddressId = addressResult.AddressId;
+                    _context.Add(addressResult);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    addressResult.StreetName = customerRequest.StreetName;
+                    addressResult.PostalCode = customerRequest.PostalCode;
+                    addressResult.City = customerRequest.City;
+
+                    _context.Entry(addressResult).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                }
+                _context.Entry(customerEntity).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                MessageBox.Show("Kunde inte uppdatera Produkt.");
+            }
+        }
     }
 }

@@ -96,21 +96,21 @@ namespace CMS22_Assignment2.Services
 
         public async void UpdateProduct(int id, ProductRequest productRequest)
         {
-            //try
-            //{
-            var productEntity = await _context.Products.FindAsync(id);
+            try
+            {
+                var productEntity = await _context.Products.FindAsync(id);
            
-            productEntity.ProductName = productRequest.ProductName;
-            productEntity.ProductDescription = productRequest.ProductDescription;
-            productEntity.Price = productRequest.Price;
+                productEntity.ProductName = productRequest.ProductName;
+                productEntity.ProductDescription = productRequest.ProductDescription;
+                productEntity.Price = productRequest.Price;
 
-            _context.Entry(productEntity).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            //}
-            //catch (Exception ex) {Debug.WriteLine(ex.Message);
+                _context.Entry(productEntity).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex) {Debug.WriteLine(ex.Message);
 
-            //    MessageBox.Show("Kunde inte uppdatera Produkt.");
-            //}
+                MessageBox.Show("Kunde inte uppdatera Produkt.");
+            }
         }
     }
 }
