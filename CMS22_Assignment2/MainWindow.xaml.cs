@@ -100,9 +100,6 @@ namespace CMS22_Assignment2
             tb_LastName.Text = "";
             tb_Mail.Text = "";
             tb_Phone.Text = "";
-            tb_StreetAddress.Text = "";
-            tb_PostalCode.Text = "";
-            tb_City.Text = "";
             tb_ProductName.Text = "";
             tb_ProductDescription.Text = "";
             tb_ProductPrice.Text = "";
@@ -187,12 +184,9 @@ namespace CMS22_Assignment2
                 LastName = tb_LastName.Text,
                 Email = tb_Mail.Text,
                 Phone = tb_Phone.Text,
-                StreetName = tb_StreetAddress.Text,
-                PostalCode = tb_PostalCode.Text,
-                City = tb_City.Text
             };
             ClearAllFields();
-            _customerServices.Create(customer);
+            _customerServices.CreateAsync(customer);
             await PopulateComboBoxes();
         }
 
@@ -208,9 +202,6 @@ namespace CMS22_Assignment2
                 tb_LastName.Text = customerReq.LastName;
                 tb_Mail.Text = customerReq.Email;
                 tb_Phone.Text = customerReq.Phone;
-                tb_StreetAddress.Text = customerReq.StreetName;
-                tb_PostalCode.Text = customerReq.PostalCode;
-                tb_City.Text = customerReq.City;
             }
             else
             {
@@ -230,9 +221,6 @@ namespace CMS22_Assignment2
                 LastName = tb_LastName.Text,
                 Email = tb_Mail.Text,
                 Phone = tb_Phone.Text,
-                StreetName = tb_StreetAddress.Text,
-                PostalCode = tb_PostalCode.Text,
-                City = tb_City.Text
             };
             _customerServices.UpdateCustomer(customerKey, customerReq);
             await PopulateComboBoxes();
@@ -247,7 +235,7 @@ namespace CMS22_Assignment2
                 Price = decimal.Parse(tb_ProductPrice.Text)
             };
             ClearAllFields();
-            _productServices.Create(product);
+            _productServices.CreateAsync(product);
             await PopulateComboBoxes();
         }
 

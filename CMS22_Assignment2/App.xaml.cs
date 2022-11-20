@@ -22,7 +22,7 @@ namespace CMS22_Assignment2
             app = Host.CreateDefaultBuilder().ConfigureServices(services =>
             {
                 services.AddScoped<MainWindow>();
-                services.AddDbContext<SqlContext>(x => x.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\jacob\Documents\Nackademin\Databasteknik\Ovningar\Assignment2\CMS22_Assignment2\CMS22_Assignment2\Contexts\localSql_database_Assignment2.mdf;Integrated Security=True;Connect Timeout=30"));
+                services.AddDbContext<SqlContext>(x => x.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\jacob\Documents\Nackademin\Databasteknik\Ovningar\Assignment2\CMS22_Assignment2\CMS22_Assignment2\Contexts\LocalSqlDB.mdf;Integrated Security=True;Connect Timeout=30"));
                 services.AddScoped<CustomerServices>();
                 services.AddScoped<ProductServices>();
                 services.AddScoped<OrderServices>();

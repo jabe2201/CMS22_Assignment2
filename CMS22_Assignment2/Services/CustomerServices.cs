@@ -22,12 +22,12 @@ namespace CMS22_Assignment2.Services
             _context = context;
         }
 
-       public async void Create(CustomerRequest customerReq)
-        {
+       public async void CreateAsync(CustomerRequest customerReq)
+       {
             try
             {
-                var customer = await _context.Customers.FirstOrDefaultAsync(x => x.Email == customerReq.Email);
-                if(customer == null)
+                var customer = _context.Customers.FirstOrDefault(x => x.Email == customerReq.Email);
+                if (customer == null)
                 {
                     customer = new CustomerEntity
                     {
@@ -36,33 +36,18 @@ namespace CMS22_Assignment2.Services
                         Email = customerReq.Email,
                         Phone = customerReq.Phone,
                     };
+                    _context.Customers.Add(customer);
+                    await _context.SaveChangesAsync();
+                    MessageBox.Show("Kund har lagts till");
                 }
                 else
                 {
                     MessageBox.Show("Det finns redan en kund med denna Mail.");
                 }
-
-                var addressResult = await _context.Addresses.FirstOrDefaultAsync(x => x.StreetName.ToLower() == customerReq.StreetName.ToLower() && x.PostalCode == customerReq.PostalCode.Trim() && x.City.ToLower() == customerReq.City.ToLower());
-                if(addressResult == null)
-                {
-                    addressResult = new CustomerAddressEntity
-                    {
-                        StreetName = customerReq.StreetName,
-                        PostalCode = customerReq.PostalCode,
-                        City = customerReq.City,
-                    };
-                    _context.Addresses.Add(addressResult);
-                    await _context.SaveChangesAsync();
-                }
-                customer.AddressId = addressResult.AddressId;
-               
-                _context.Customers.Add(customer);
-                await _context.SaveChangesAsync();
-                MessageBox.Show("Kund har lagts till");
             }
-            catch (Exception ex) { Debug.WriteLine(ex.Message); 
-            
-                MessageBox.Show("Kund kunde inte läggas till.");
+            catch
+            {
+                MessageBox.Show("Kunde inte lägga till kund.");
             }
        }
 
@@ -102,12 +87,7 @@ namespace CMS22_Assignment2.Services
                     Email = customerEntity.Email,
                     Phone = customerEntity.Phone,
                 };
-                
-                var addressEntity = await _context.Addresses.FindAsync(customerEntity.AddressId);
-
-                customerReq.StreetName = addressEntity.StreetName;
-                customerReq.PostalCode = addressEntity.PostalCode;
-                customerReq.City = addressEntity.City;
+               
 
                 return customerReq;
             }
@@ -126,28 +106,6 @@ namespace CMS22_Assignment2.Services
                 customerEntity.Phone = customerRequest.Phone;
                 customerEntity.Email = customerRequest.Email;
 
-                var addressResult = await _context.Addresses.FindAsync(customerEntity.AddressId);
-                if(addressResult.StreetName.ToLower() != customerRequest.StreetName.ToLower() && addressResult.PostalCode != customerRequest.PostalCode.Trim() && addressResult.City.ToLower() != customerRequest.City.ToLower())
-                {
-                    addressResult = new CustomerAddressEntity
-                    {
-                        StreetName = customerRequest.StreetName,
-                        PostalCode = customerRequest.PostalCode,
-                        City = customerRequest.City,
-                    };
-                    customerEntity.AddressId = addressResult.AddressId;
-                    _context.Add(addressResult);
-                    await _context.SaveChangesAsync();
-                }
-                else
-                {
-                    addressResult.StreetName = customerRequest.StreetName;
-                    addressResult.PostalCode = customerRequest.PostalCode;
-                    addressResult.City = customerRequest.City;
-
-                    _context.Entry(addressResult).State = EntityState.Modified;
-                    await _context.SaveChangesAsync();
-                }
                 _context.Entry(customerEntity).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
 

@@ -17,8 +17,6 @@ namespace CMS22_Assignment2.Models.Entities
         public string Email { get; set; } = null!;
         public string Phone { get; set; } = null!;
 
-        public int AddressId { get; set; }
-        public CustomerAddressEntity Address { get; set; } = null!;
         public ICollection<OrderEntity>? Orders { get; set; }
 
     }

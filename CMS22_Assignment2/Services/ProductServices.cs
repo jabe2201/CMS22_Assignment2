@@ -23,7 +23,7 @@ namespace CMS22_Assignment2.Services
             _context = context;
         }
 
-        public async void Create(ProductRequest productRequest)
+        public async void CreateAsync(ProductRequest productRequest)
         {
             try
             {

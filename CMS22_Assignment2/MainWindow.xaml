@@ -100,7 +100,7 @@
 
         </Grid>
 
-        <Grid x:Name="CustomerView" Visibility="Collapsed">
+        <Grid x:Name="CustomerView" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -145,12 +145,6 @@
                 <TextBox x:Name="tb_Mail" FontSize="15" Padding="0 5"/>
                 <TextBlock Text="Telefonnummer" Margin="0 5" FontSize="15" Foreground="#6e6b6b"/>
                 <TextBox x:Name="tb_Phone" FontSize="15" Padding="0 5"/>
-                <TextBlock Text="Adress" Margin="0 5" FontSize="15" Foreground="#6e6b6b"/>
-                <TextBox x:Name="tb_StreetAddress" FontSize="15" Padding="0 5"/>
-                <TextBlock Text="Postnummer" Margin="0 5" FontSize="15" Foreground="#6e6b6b"/>
-                <TextBox x:Name="tb_PostalCode" FontSize="15" Padding="0 5"/>
-                <TextBlock Text="Ort" Margin="0 5" FontSize="15" Foreground="#6e6b6b"/>
-                <TextBox x:Name="tb_City" FontSize="15" Padding="0 5"/>
                 <TextBlock Text="Uppdatera befintlig kund" Margin="0 10" FontSize="15" Foreground="#6e6b6b"/>
                 <ComboBox x:Name="cb_CustomerEdit" DisplayMemberPath="Value" SelectionChanged="cb_CustomerEdit_SelectionChanged" FontSize="15" Padding="0 5"/>
             </StackPanel>
@@ -162,7 +156,7 @@
             
         </Grid>
 
-        <Grid x:Name="ProductView" Visibility="Visible">
+        <Grid x:Name="ProductView" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
