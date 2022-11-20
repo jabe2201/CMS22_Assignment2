@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CMS22_Assignment2.Services
 {
@@ -23,6 +24,7 @@ namespace CMS22_Assignment2.Services
         {
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
+            MessageBox.Show("Order skapad.");
         }
 
         public async Task CreateRowsAsync(ObservableCollection<OrderRowModel> orderRows, int orderId)

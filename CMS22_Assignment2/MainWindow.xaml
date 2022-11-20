@@ -32,7 +32,7 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <ComboBox x:Name="cb_Customer" VerticalAlignment="Center" FontSize="12"/>
+                <ComboBox x:Name="cb_Customer" DisplayMemberPath="Value" VerticalAlignment="Center" FontSize="12"/>
             </Grid>
 
             <Grid Grid.Row="2">
@@ -49,7 +49,7 @@
             </Grid>
 
             <Grid Grid.Row="3">
-                <ComboBox x:Name="cb_Products" VerticalAlignment="Center" FontSize="12"/>
+                <ComboBox x:Name="cb_Products" DisplayMemberPath="Value" VerticalAlignment="Center" FontSize="12"/>
             </Grid>
                 
             <ListView Grid.Row="5" x:Name="lv_OrderRows" Background="#f5f7f7">
@@ -204,7 +204,7 @@
                 <TextBlock Text="Pris" Margin="0 5" FontSize="15" Foreground="#6e6b6b"/>
                 <TextBox x:Name="tb_ProductPrice" FontSize="15" Padding="0 5"/>
                 <TextBlock Text="Uppdater Produkt" FontSize="15" FontWeight="Bold" Foreground="#6e6b6b" Margin="0 15 0 0"/>
-                <ComboBox x:Name="cb_ProductEdit" FontSize="15" Padding="0 5" Margin="0 10 0 0" SelectionChanged="cb_ProductEdit_SelectionChanged"/>
+                <ComboBox x:Name="cb_ProductEdit" DisplayMemberPath="Value" FontSize="15" Padding="0 5" Margin="0 10 0 0" SelectionChanged="cb_ProductEdit_SelectionChanged"/>
             </StackPanel>
 
             <StackPanel Grid.Row="2" Margin="0 20 0 0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
