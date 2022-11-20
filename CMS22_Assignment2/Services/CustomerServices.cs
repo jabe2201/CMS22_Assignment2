@@ -150,12 +150,14 @@ namespace CMS22_Assignment2.Services
                 }
                 _context.Entry(customerEntity).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
+
+                MessageBox.Show("Kund har uppdaterats");
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                MessageBox.Show("Kunde inte uppdatera Produkt.");
+                MessageBox.Show("Kunde inte uppdatera Kundinformation.");
             }
         }
     }
